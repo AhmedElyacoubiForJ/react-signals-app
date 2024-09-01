@@ -1,3 +1,10 @@
+# npm i bootstrap
+# npm i @preact/signals-react@1.3.8
+
+[@preact/signals-react](https://www.npmjs.com/package/@preact/signals-react)
+
+
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
