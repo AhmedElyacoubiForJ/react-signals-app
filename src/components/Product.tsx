@@ -5,7 +5,7 @@ const price = 3400
 const quantity = signal<number>(100);
 const totalPrice = computed<number>(() => price * quantity.value);
 
-const Products = () => {
+const Product = () => {
 
   return (
     <div className="p-3">
@@ -32,5 +32,5 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default Product;
 

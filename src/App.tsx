@@ -1,11 +1,11 @@
 import './App.css'
-import Products from './components/Products'
+import Product from './components/Product'
 import "bootstrap/dist/css/bootstrap.min.css"
 function App() {
 
   return (
     <>
-     <Products />
+     <Product />
     </>
   )
 }
