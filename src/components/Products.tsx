@@ -1,10 +1,33 @@
+import { computed, signal } from "@preact/signals-react";
+
+const price = signal<number>(12000);
+const quantity = signal<number>(100);
+const totalPrice = computed<number>(() => price.value * quantity.value);
+
 const Products = () => {
-    
   return (
     <div className="p-3">
-      <h1>Products</h1>
+      <ul className="list-group">
+        <li className="list-group-item">Price : {price.value}</li>
+        <li className="list-group-item">
+          Quantity : {quantity.value}
+          <button
+            className="btn btn-outline-primary p-1 m-1"
+            onClick={() => quantity.value--}
+          >
+            -
+          </button>
+          <button
+            className="btn btn-outline-primary p-1 m-1"
+            onClick={() => quantity.value++}
+          >
+            +
+          </button>
+        </li>
+        <li className="list-group-item">Total Price: {totalPrice.value}</li>
+      </ul>
     </div>
-  )
-}
+  );
+};
 
-export default Products
+export default Products;
