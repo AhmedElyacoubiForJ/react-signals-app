@@ -1,12 +1,12 @@
 import './App.css'
-import Product from './components/Product'
+import Products from './components/Products'
 import "bootstrap/dist/css/bootstrap.min.css"
 function App() {
 
   return (
-    <>
-     <Product />
-    </>
+    <div className='container'>
+     <Products />
+    </div>
   )
 }
 
