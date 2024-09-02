@@ -1,44 +1,20 @@
-import { signal, computed } from "@preact/signals-react";
-import { IProductModel } from "../model/product.model.ts";
-
-const products = signal<IProductModel[]>([
-  { id: 1, name: "Computer", price: 4500, selected: false },
-  { id: 2, name: "Printer", price: 2300, selected: true },
-  { id: 3, name: "Smart phone", price: 1200, selected: true },
-]);
-
-const totalPrice = computed<number>(() =>
-  products.value.reduce(
-    (acc, curr) => acc + (curr.selected ? curr.price : 0),
-    0
-  )
-);
-
-// totalPrice
-const totalPrice2 = computed<number>(() =>
-  products.value
-    .filter((p) => p.selected)
-    .reduce((sum, product) => sum + product.price, 0)
-);
-
-const selectAll = () => {
-  const productsUpdated = products.value.map((p) => ({ ...p, selected: true }));
-  products.value = [...productsUpdated];
-};
-
-const numberOfProductsSelected = computed<number>(() =>
-  products.value.reduce((acc, curr) => (curr.selected ? acc + 1 : acc), 0)
-);
-
-//const numberOfProductsSelected = computed<number>(() => products.value.filter(p => p.selected === true).length);
+import { computed } from "@preact/signals-react";
+import { useStore } from "../store/useStore";
 
 const Products = () => {
-  const select = (product: IProductModel) => {
-    const productsUpdated = products.value.map((p) =>
-      p.id === product.id ? { ...p, selected: !p.selected } : p
-    );
-    products.value = [...productsUpdated];
-  };
+  const { store } = useStore();
+  const numberOfProductsSelected = computed<number>(() =>
+    store.products.value.reduce(
+      (acc, curr) => (curr.selected ? acc + 1 : acc),
+      0
+    )
+  );
+  const totalPrice = computed<number>(() =>
+    store.products.value.reduce(
+      (acc, curr) => acc + (curr.selected ? curr.price : 0),
+      0
+    )
+  );
   return (
     <div className="p-3">
       <div>
@@ -61,7 +37,7 @@ const Products = () => {
           </tr>
         </thead>
         <tbody>
-          {products.value.map((product) => (
+          {store.products.value.map((product) => (
             <tr key={product.id}>
               <td>{product.id}</td>
               <td>{product.name}</td>
@@ -69,14 +45,14 @@ const Products = () => {
               <td>
                 {product.selected ? (
                   <button
-                    onClick={() => select(product)}
+                    onClick={() => store.select(product)}
                     className="btn btn-success"
                   >
                     Selected
                   </button>
                 ) : (
                   <button
-                    onClick={() => select(product)}
+                    onClick={() => store.select(product)}
                     className="btn btn-danger"
                   >
                     Not Selected
