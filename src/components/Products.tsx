@@ -5,6 +5,21 @@ const Products = () => {
 
   return (
     <div className="p-3">
+      <div>
+        <button
+          onClick={() =>
+            store.addProduct({
+              id: new Date().getTime(),
+              name: "New Product A",
+              price: 209,
+              selected: false,
+            })
+          }
+          className="btn btn-success"
+        >
+          Add New Product
+        </button>
+      </div>
       <table className="table">
         <thead>
           <tr>

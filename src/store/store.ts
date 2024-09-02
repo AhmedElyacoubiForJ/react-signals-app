@@ -24,6 +24,11 @@ export class Store {
     );
     this.products.value = [...productsUpdated];
   };
+  // add product
+  addProduct = (product: IProductModel) => {
+    const productsUpdated = [...this.products.value, product];
+    this.products.value = [...productsUpdated];
+  };
 }
 
 export const store = new Store();
