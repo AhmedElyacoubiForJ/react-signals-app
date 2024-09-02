@@ -12,6 +12,7 @@ const Products = () => {
             <th>Name</th>
             <th>Price</th>
             <th>Selected</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -23,19 +24,27 @@ const Products = () => {
               <td>
                 {product.selected ? (
                   <button
-                    onClick={() => store.select(product)}
+                    onClick={() => store.selectProduct(product)}
                     className="btn btn-success"
                   >
                     Selected
                   </button>
                 ) : (
                   <button
-                    onClick={() => store.select(product)}
+                    onClick={() => store.selectProduct(product)}
                     className="btn btn-danger"
                   >
                     Not Selected
                   </button>
                 )}
+              </td>
+              <td>
+                <button
+                  onClick={() => store.deleteProduct(product.id)}
+                  className="btn btn-danger"
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           ))}
