@@ -9,7 +9,7 @@ const Products = () => {
         <button
           onClick={() =>
             store.addProduct({
-              id: new Date().getTime(),
+              id: store.getNextId(),
               name: "New Product A",
               price: 209,
               selected: false,

@@ -29,6 +29,10 @@ export class Store {
     const productsUpdated = [...this.products.value, product];
     this.products.value = [...productsUpdated];
   };
+  getNextId() {
+    const maxId = Math.max(...this.products.value.map((p) => p.id));
+    return maxId + 1;
+  }
 }
 
 export const store = new Store();
