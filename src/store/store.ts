@@ -3,26 +3,30 @@ import { IProductModel } from "../model/product.model";
 
 export class Store {
   // properties
-  products = signal<IProductModel[]>(this.loadFromLocalStorage());
+  products = signal<IProductModel[]>(this.loadState());
+  sequence: number;
 
-  // load from local storage
-  loadFromLocalStorage() {
+  // load data from local storage
+  loadState() {
     const data = localStorage.getItem("my-store");
-    if (data == undefined) {
-      return [
+    if (data == undefined || data.length == 0) {
+      const prods = [
         { id: 1, name: "Computer", price: 4500, selected: false },
         { id: 2, name: "Printer", price: 2300, selected: true },
         { id: 3, name: "Smart phone", price: 1200, selected: true },
       ];
+      this.sequence = prods.length;
+      return prods;
     } else {
-      return JSON.parse(data);
+      const prods = data !== null ? JSON.parse(data) : [];
+      this.sequence = prods.length;
+      return prods;
     }
   }
 
   // constructor
   constructor() {
     effect(() => {
-      //console.log("Products updated", this.products.value);
       localStorage.setItem("my-store", JSON.stringify(this.products.value));
     });
   }
@@ -35,7 +39,7 @@ export class Store {
     );
     this.products.value = [...productsUpdated];
   };
-  // delete products
+  // delete product
   deleteProduct = (productId: number) => {
     const productsUpdated = this.products.value.filter(
       (p) => p.id !== productId
@@ -44,10 +48,12 @@ export class Store {
   };
   // add product
   addProduct = (product: IProductModel) => {
-    const productsUpdated = [...this.products.value, product];
-    this.products.value = [...productsUpdated];
+    //const productWithId = { ...product, id: ++this.sequence };
+    const productWithId = {...product, id: this.getProductNextId() };
+    this.products.value = [...this.products.value, productWithId];
   };
-  getNextId() {
+
+  private getProductNextId = () => {
     const maxId = Math.max(...this.products.value.map((p) => p.id));
     return maxId + 1;
   }
