@@ -1,14 +1,14 @@
 import { computed, signal } from "@preact/signals-react";
 
 //const price = signal<number>(12000);
-const price = 3400
+const price = 3400;
 const quantity = signal<number>(100);
 const totalPrice = computed<number>(() => price * quantity.value);
 
 const Product = () => {
-
   return (
     <div className="p-3">
+      <h3>How Signals works</h3>
       <ul className="list-group">
         <li className="list-group-item">Price : {price}</li>
         <li className="list-group-item">
@@ -33,4 +33,3 @@ const Product = () => {
 };
 
 export default Product;
-

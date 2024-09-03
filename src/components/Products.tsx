@@ -1,10 +1,12 @@
 import { useStore } from "../store/useStore";
+import AddProduct from "./AddProduct";
 
 const Products = () => {
   const { store } = useStore();
 
   return (
     <div className="p-3">
+      <AddProduct />
       <table className="table">
         <thead>
           <tr>
